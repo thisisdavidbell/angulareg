@@ -33,9 +33,7 @@ describe('addData', function() {
     var storage2 = new Storage();
     var storage3 = new Storage();
     storage2.addData("thename2","thetext2");
-        storage2.addData("thename3","thetext2");
-        console.log("2" + storage2.countData());
-            console.log("3" + storage3.countData());
+    storage2.addData("thename3","thetext2");
     expect(storage2.countData()).to.not.equal(storage3.countData());
    // expect(storage.countData()).to.equal(beforeadd+1);
   });
