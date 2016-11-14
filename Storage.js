@@ -1,39 +1,44 @@
-module.exports = function Storage() {
+module.exports = Storage;
 
-  var astring = "imthestring";
+  // this would be a shared object for all 'instances' of Storage
   var db = {};
 
-  Storage.prototype.getalldata = function () {
-    console.log(astring);
-    return db;
+function Storage() {
+
+  // these are specific to this instance.
+  this.astring = "imthestring";
+  this.db = {};
+}
+
+   Storage.prototype.getAllData = function () {
+    console.log(this.astring);
+    return this.db;
 
   }
 
-    Storage.prototype.getdata = function (name) {
-    return db[name];
+    Storage.prototype.getData = function (name) {
+    return this.db[name];
 
   }
 
-  Storage.prototype.adddata = function (name,text) {
+  Storage.prototype.addData = function (name,text) {
     //object should contain name and text
-    db[name] = text;
+    this.db[name] = text;
     return name;
   }
 
-  Storage.prototype.updatedata = function () {
+  Storage.prototype.updateData = function () {
     return {};
   }
 
-  Storage.prototype.deletedata = function () {
+  Storage.prototype.deleteData = function () {
     return {};
   }
 
-  Storage.prototype.countdata = function () {
+  Storage.prototype.countData = function () {
     var size = 0, key;
-    for (key in db) {
+    for (key in this.db) {
         size++;
     }
     return size;
   }
-
-}
