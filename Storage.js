@@ -43,11 +43,7 @@ function Storage() {
  //     console.log ("about to throw an error");
       throw new Error("Database does not contain record for name: " + name );
     } else {
-//        console.log ("didnt detect null");
-      console.log(this.db[name].text);
       this.db[name].text = text;
-      console.log(this.db[name].text);
-//      this.db[name].done = false;
       return this.db[name];
     }
   }
