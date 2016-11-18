@@ -6,12 +6,10 @@ module.exports = Storage;
 function Storage() {
 
   // these are specific to this instance.
-  this.astring = "imthestring";
   this.db = {};
 }
 
    Storage.prototype.getAllData = function () {
-    console.log(this.astring);
     return this.db;
 
   }
@@ -22,16 +20,32 @@ function Storage() {
   }
 
   Storage.prototype.addData = function (name,text) {
-    //object should contain name and text
-    this.db[name] = text;
-    return name;
+    //Check record doesnt exist
+    if (this.db[name] != null) {
+      throw new Error("Database already contains record for name:" + name);
+    } else {
+      this.db[name] = {};
+      this.db[name].text = text;
+      this.db[name].done = false;
+      return this.db[name];
+    }
   }
 
-  Storage.prototype.updateData = function () {
-    return {};
+  Storage.prototype.updateData = function (name,text) {
+    if (this.db[name] == null) {
+ //     console.log ("about to throw an error");
+      throw new Error("Database does not contain record for name: " + name );
+    } else {
+//        console.log ("didnt detect null");
+      console.log(this.db[name].text);
+      this.db[name].text = text;
+      console.log(this.db[name].text);
+//      this.db[name].done = false;
+      return this.db[name];
+    }
   }
 
-  Storage.prototype.deleteData = function () {
+  Storage.prototype.deleteData = function (name) {
     return {};
   }
 
