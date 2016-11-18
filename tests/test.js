@@ -31,6 +31,20 @@ describe('addData', function() {
 });
 
 describe('addData', function() {
+  it('addData passing it name, text and done values should create new object so count is bigger, and done on object should be true', function() {
+    var storage = new Storage();
+    var beforeadd = storage.countData();
+    var name = "thename";
+    var text = "thetext";
+    var done = true;
+    var record = storage.addData(name,text,done);
+   // expect(storage.addData("thename","thetext")).to.contain("thename");
+    expect(storage.countData()).to.equal(beforeadd+1);
+    expect(record.done).to.equal(true);
+  });
+});
+
+describe('addData', function() {
   it('add data should cope with names with spaces', function() {
     var storage = new Storage();
     var storage2 = new Storage();
@@ -100,3 +114,28 @@ describe('updateData', function() {
     expect(storageupdate.getData(name).text).to.equal(newtext);
   });
 });
+
+describe('deleteData', function() {
+  it('deleteData should mean getdata for record throws error', function() {
+    var storage = new Storage();
+    var name = "thename";
+    var text = "thetext";
+    storage.addData(name, text);
+    expect(storage.countData()).to.equal(1);
+    storage.deleteData("thename");
+    expect(function(){ storage.getData("thename");}).to.throw(Error, /Database does not contain record for name/);
+  });
+});
+
+describe('deleteData', function() {
+  it('deleteData should remove record so count is down by 1', function() {
+    var storage = new Storage();
+    var name = "thename";
+    var text = "thetext";
+    storage.addData(name, text);
+    expect(storage.countData()).to.equal(1);
+    storage.deleteData("thename");
+    expect(storage.countData()).to.equal(0);
+  });
+});
+

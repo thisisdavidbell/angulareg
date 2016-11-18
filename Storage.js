@@ -15,18 +15,25 @@ function Storage() {
   }
 
     Storage.prototype.getData = function (name) {
-    return this.db[name];
-
+    if (this.db[name] == null) {
+      throw new Error("Database does not contain record for name:" + name);
+    } else {
+      return this.db[name];
+    }
   }
 
-  Storage.prototype.addData = function (name,text) {
+  Storage.prototype.addData = function (name,text,done) {
     //Check record doesnt exist
     if (this.db[name] != null) {
       throw new Error("Database already contains record for name:" + name);
     } else {
       this.db[name] = {};
       this.db[name].text = text;
-      this.db[name].done = false;
+      if (done != null) {
+        this.db[name].done = done;
+      } else {
+        this.db[name].done = false;
+      }
       return this.db[name];
     }
   }
@@ -46,7 +53,12 @@ function Storage() {
   }
 
   Storage.prototype.deleteData = function (name) {
-    return {};
+   if (this.db[name] == null) {
+ //     console.log ("about to throw an error");
+      throw new Error("Database does not contain record for name: " + name );
+    } else {
+      delete this.db[name];
+    }
   }
 
   Storage.prototype.countData = function () {
