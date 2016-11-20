@@ -27,6 +27,11 @@ module.exports = Storage;
   }
 
   Storage.prototype.addData = function (name,text,done) {
+     if(name == null || text == null || typeof(name) != 'string' || typeof(text) != 'string') {
+       throw new Error("Todo must contain at least name and text fields, which are both strings");
+     }
+
+
       var uuid = uuid_generator();
       this.db[uuid] = {};
       this.db[uuid].name = name;
@@ -40,7 +45,6 @@ module.exports = Storage;
   }
 
   Storage.prototype.updateData = function (uuid,name,text,done) {
-    console.log("The uuid to lookup: " + uuid);
     if (this.db[uuid] == null) {
  //     console.log ("about to throw an error");
       throw new Error("Database does not contain record for name: " + name );

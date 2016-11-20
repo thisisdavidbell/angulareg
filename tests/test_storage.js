@@ -3,7 +3,7 @@ var expect = chai.expect; // we are using the "expect" style of Chai
 var Storage = require('./../Storage');
 
 // TODO ==========
-//  - add testing and serve capability for when creating and updating and not passing all off name, text and done.
+//  -
 
 //var storage = new Storage();
 describe('Testing Storage module - in memory db.', function() {
@@ -64,6 +64,18 @@ describe('Testing Storage module - in memory db.', function() {
       //expect object to be returned.
     });
 
+    it('addData should throw error if at least 2 fields not provided (name and text)', function() {
+      var storage = new Storage();
+      var beforeadd = storage.countData();
+      var name = "thename";
+      var text = "thetext";
+      var done = false;
+      expect(function(){storage.addData(name);}).to.throw(Error, /Todo must contain at least/);
+      expect(function(){storage.addData(name,done);}).to.throw(Error, /Todo must contain at least/);
+      expect(function(){storage.addData(text,done);}).to.throw(Error, /Todo must contain at least/);
+      expect(function(){storage.addData(done, name);}).to.throw(Error, /Todo must contain at least/);
+     // expect(storage.addData("thename","thetext")).to.contain("thename");
+    });
 
   /*
   describe('addData', function() {
@@ -109,7 +121,7 @@ describe('Testing Storage module - in memory db.', function() {
       var storageupdate = new Storage();
       var uuid = storageupdate.addData("aname","some text", false);
       var diffuuid = '12345';
-      console.log("in test, diffuuid = " + diffuuid);
+  //    console.log("in test, diffuuid = " + diffuuid);
       expect(function(){ storageupdate.updateData(diffuuid, "diffname", "someothertext", false)}).to.throw(Error, /Database does not contain record for name/);
     });
 
