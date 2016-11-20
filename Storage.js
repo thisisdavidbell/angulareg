@@ -1,59 +1,63 @@
+//const uuid = require('uuid');
+//var uuid = require('node-uuid');
+
 module.exports = Storage;
 
-  // this would be a shared object for all 'instances' of Storage
-  var db = {};
+  var db = {}; // this is the shared object for all uses of this 'instance' of Storage
+  const uuid_generator = require('uuid');
 
-function Storage() {
+  function Storage() {
 
   // these are specific to this instance.
-  this.db = {};
-}
+    this.db = {};
+    //console.log(uuid());
+  }
 
-   Storage.prototype.getAllData = function () {
+  Storage.prototype.getAllData = function () {
     return this.db;
 
   }
 
-    Storage.prototype.getData = function (name) {
-    if (this.db[name] == null) {
-      throw new Error("Database does not contain record for name:" + name);
+  Storage.prototype.getData = function (uuid) {
+    if (this.db[uuid] == null) {
+      throw new Error("Database does not contain record for uuid:" + uuid);
     } else {
-      return this.db[name];
+      return this.db[uuid];
     }
   }
 
   Storage.prototype.addData = function (name,text,done) {
-    //Check record doesnt exist
-    if (this.db[name] != null) {
-      throw new Error("Database already contains record for name:" + name);
-    } else {
-      this.db[name] = {};
-      this.db[name].text = text;
+      var uuid = uuid_generator();
+      this.db[uuid] = {};
+      this.db[uuid].name = name;
+      this.db[uuid].text = text;
       if (done != null) {
-        this.db[name].done = done;
+        this.db[uuid].done = done;
       } else {
-        this.db[name].done = false;
+        this.db[uuid].done = false;
       }
-      return this.db[name];
-    }
+      return uuid;
   }
 
-  Storage.prototype.updateData = function (name,text) {
-    if (this.db[name] == null) {
+  Storage.prototype.updateData = function (uuid,name,text,done) {
+    console.log("The uuid to lookup: " + uuid);
+    if (this.db[uuid] == null) {
  //     console.log ("about to throw an error");
       throw new Error("Database does not contain record for name: " + name );
     } else {
-      this.db[name].text = text;
-      return this.db[name];
+      this.db[uuid].name = name;
+      this.db[uuid].text = text;
+      this.db[uuid].done = done;
+      return this.db[uuid];
     }
   }
 
-  Storage.prototype.deleteData = function (name) {
-   if (this.db[name] == null) {
+  Storage.prototype.deleteData = function (uuid) {
+   if (this.db[uuid] == null) {
  //     console.log ("about to throw an error");
-      throw new Error("Database does not contain record for name: " + name );
+      throw new Error("Database does not contain record for uuid: " + uuid );
     } else {
-      delete this.db[name];
+      delete this.db[uuid];
     }
   }
 
