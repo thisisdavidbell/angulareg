@@ -51,20 +51,20 @@ describe('Testing server', function() {
       .post("/api/todos")
       .send('{"name": "thename", "text": "some text", "done": "false"}')
       .end(function(err,res){
-        console.log(JSON.stringify(res));
+    //    console.log(JSON.stringify(res));
         expect(res.status).to.equal(201);  // HTTP status should be 201 for POST
         done();
       }); // end .end
     }); // end it
 
-    it("should return all objects", function(done){
+    it("should return an object", function(done){
       request(server)
       .post("/api/todos")
-      .send('{"name": "thename", "text": "some text", "done": "false"}')
+      .send('{"name": "thename2", "text2": "some text2", "done": "false"}')
       .end(function(err,res){
-        console.log(JSON.stringify(res));
-        expect(res.status).to.equal(201);  // HTTP status should be 201 for POST
-// should this be a new POST? Test inspect the response contains newly created object.
+  //      console.log(JSON.stringify(res));
+        expect(res.status).to.equal(201);
+        expect(res).to.be.a('object');
         done();
       }); // end .end
     }); // end it

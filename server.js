@@ -43,18 +43,18 @@
     });
 
     // create todo and send back all todos after creation
-/*    app.post('/api/todos', function(req, res) {
+    app.post('/api/todos', function(req, res) {
+      console.log(req.body.text);
 
-        // create a todo, information comes from AJAX request from Angular
-        try {
+    // create a todo, information comes from AJAX request from Angular
+  var uuid = storage.addData(req.body.name, req.body.text, req.body.done);
 
-        }
+    // get and return all the todos after you create another
+    var todos = storage.getAllData();
 
-            // get and return all the todos after you create another
-
-
+    res.json(todos);
     });
-
+/*
     // delete a todo
     app.delete('/api/todos/:todo_id', function(req, res) {
         Todo.remove({
