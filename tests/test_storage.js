@@ -74,7 +74,6 @@ describe('Testing Storage module - in memory db.', function() {
       expect(function(){storage.addData(name,done);}).to.throw(Error, /Todo must contain at least/);
       expect(function(){storage.addData(text,done);}).to.throw(Error, /Todo must contain at least/);
       expect(function(){storage.addData(done, name);}).to.throw(Error, /Todo must contain at least/);
-     // expect(storage.addData("thename","thetext")).to.contain("thename");
     });
 
   /*
@@ -135,7 +134,23 @@ describe('Testing Storage module - in memory db.', function() {
       storageupdate.updateData(uuid, name, newtext, false);
       expect(storageupdate.getData(uuid).text).to.equal(newtext);
     });
-  });
+
+    it('updateData should throw error if any fields missing', function() {
+      var storage = new Storage();
+      var name = "thename";
+      var text = "thetext";
+      var done = false;
+      var uuid = storage.addData(name,text,done);
+      expect(function(){storage.updateData(uuid,name);}).to.throw(Error, /Todo update must contain name, text and done/);
+      expect(function(){storage.updateData(uuid,name,done);}).to.throw(Error, /Todo update must contain name, text and done/);
+      expect(function(){storage.updateData(uuid,text,done);}).to.throw(Error, /Todo update must contain name, text and done/);
+      expect(function(){storage.updateData(uuid,done,name);}).to.throw(Error, /Todo update must contain name, text and done/);
+
+      //working case
+      expect(function(){storage.updateData(uuid,name,text,done);}).to.not.throw(Error, /Todo update must contain name, text and done/);
+    });
+
+  }); // end define updateData
 
 
   describe('deleteData.', function() {

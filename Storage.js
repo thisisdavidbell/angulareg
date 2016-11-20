@@ -45,6 +45,9 @@ module.exports = Storage;
   }
 
   Storage.prototype.updateData = function (uuid,name,text,done) {
+    if(uuid == null || name == null || text == null || typeof(name) != 'string' || typeof(text) != 'string' || typeof(done) != 'boolean') {
+      throw new Error("Todo update must contain name, text and done");
+    }
     if (this.db[uuid] == null) {
  //     console.log ("about to throw an error");
       throw new Error("Database does not contain record for name: " + name );
