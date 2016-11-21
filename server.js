@@ -34,43 +34,32 @@
     // get all todos
     app.get('/api/todos', function(req, res) {
 
-        // use mongoose to get all todos in the database
-        //Todo.find(function(err, todos) {
-
         var todos = storage.getAllData();
-
         res.json(todos); // return all todos in JSON format
+
     });
 
     // create todo and send back all todos after creation
     app.post('/api/todos', function(req, res) {
-      console.log(req.body.text);
 
     // create a todo, information comes from AJAX request from Angular
-  var uuid = storage.addData(req.body.name, req.body.text, req.body.done);
+      var uuid = storage.addData(req.body.name, req.body.text, req.body.done);
 
-    // get and return all the todos after you create another
-    var todos = storage.getAllData();
 
-    res.json(todos);
+      var todos = storage.getAllData();     // get and return all the todos after you create another
+
+    res.status(201).json(todos);
     });
-/*
+
     // delete a todo
-    app.delete('/api/todos/:todo_id', function(req, res) {
-        Todo.remove({
-            _id : req.params.todo_id
-        }, function(err, todo) {
-            if (err)
-                res.send(err);
+    app.delete('/api/todos/:uuid', function(req, res) {
 
-            // get and return all the todos after you create another
-            Todo.find(function(err, todos) {
-                if (err)
-                    res.send(err)
-                res.json(todos);
-            });
-        });
+            var uuid = req.params.uuid;
+            storage.deleteData(uuid); // delete record matching uuid
+
+            var todos = storage.getAllData();             // get and return all the todos after you create another
+
+            res.status(200).json(todos);    // return 200 because we are returning content. (204 is no content)
     });
-*/
 
 module.exports = server;

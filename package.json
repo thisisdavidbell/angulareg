@@ -7,8 +7,8 @@
     "test": "mocha ./tests/test_storage.js ./tests/test_server.js",
     "test-storage": "mocha ./tests/test_storage.js",
     "test-server": "mocha ./tests/test_server.js",
-    "serve": "node server.js",
-    "dynserve": "nodemon server.js"
+    "server": "node server.js",
+    "dynserver": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.4.3",
