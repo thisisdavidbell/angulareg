@@ -1,14 +1,18 @@
 # angulareg
 
-A project to checkout Angular js, along side node. 
+A project to checkout Angular js, along side node.
 
-Based in: https://scotch.io/tutorials/creating-a-single-page-todo-app-with-node-and-angular
+Created following TDD principles.
 
-Will use shared object instead of Mongo.
+Based on: https://scotch.io/tutorials/creating-a-single-page-todo-app-with-node-and-angular
 
-To run tests: `npm run test`
+Will create an in memory db based on a json object (Storage.js) instead of Mongo.
 
-To run server: `npm run serve`
+To run all tests: `npm run test`
+ - to run Storage tests: `npm run test-storage`
+ - to run REST server tests: `npm run test-server`
+
+To run server: `npm run server`
 
 
 ToDo
