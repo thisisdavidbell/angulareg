@@ -1,0 +1,27 @@
+<html ng-app="drbTodo">
+<head>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+  <script src="core.js"></script>
+  <link rel="stylesheet" href="drbstyle.css">
+</head>
+<body ng-controller="drbController">
+  <div  class="centered">
+  <h1>DRBs ToDo Angular Example</h1>
+    <div>I have this many todos to complete: {{todos.length}}</div>
+    <div class="midcol">
+      <div class="left" ng-repeat="(id,todo) in todos">
+        <form>
+          <input type="checkbox"  ng-click="deleteTodo(id)" ng-checked="todo.done"><span class="bold">{{todo.name}}: </span>{{todo.text}}</div>
+        <!--<button type="submit" ng-click="deleteTodo()">Delete completed ToDos</button> -->
+      </div>
+      Enter a new todo:
+      <form name="frm">
+        <input type="text" name="name" ng-model="formData.name">
+        <input type="text" name="text" ng-model="formData.text">
+        <button type="submit" ng-disabled="formData.name == null || formData.text == null" ng-click="createTodo()">Add</button>
+      </form>
+
+    <div>
+  </div>
+</body>
+</html>

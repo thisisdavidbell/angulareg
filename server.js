@@ -28,6 +28,12 @@
 
     var storage = new Storage(); // use my storage in memory db instead
 
+    // application ===============================================
+
+    app.get('/', function(req, res) {
+        res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    });
+
     // routes ======================================================================
 
     // api ---------------------------------------------------------------------
@@ -41,6 +47,7 @@
 
     // create todo and send back all todos after creation
     app.post('/api/todos', function(req, res) {
+      console.log(req.body);
 
     // create a todo, information comes from AJAX request from Angular
       var uuid = storage.addData(req.body.name, req.body.text, req.body.done);
@@ -61,5 +68,6 @@
 
             res.status(200).json(todos);    // return 200 because we are returning content. (204 is no content)
     });
+
 
 module.exports = server;

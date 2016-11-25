@@ -1,0 +1,17 @@
+.bold {
+   font-weight: bold;
+}
+
+.centered {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.midcol {
+  width: 400px ;
+  margin-left: auto ;
+  margin-right: auto ;
+}
