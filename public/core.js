@@ -16,30 +16,38 @@ function drbController ($scope, $http) {
           console.log('Error: ' + data);
       });
 
-      $scope.createTodo = function() {
-          console.log($scope.formData);
+  $scope.createTodo = function() {
+
           $http.post('/api/todos', $scope.formData)
               .success(function(data) {
-                          console.log($scope.formData);
                   $scope.formData = {}; // clear the form so our user is ready to enter another
                   $scope.todos = data; //update todos in scope - which will update anything in UI using todos.
-                  console.log(data);
-              })
-              .error(function(data) {
-                  console.log('Error: ' + data);
-              });
-      };
 
-      // delete a todo after checking it
-      $scope.deleteTodo = function(id) {
-          $http.delete('/api/todos/' + id)
-              .success(function(data) {
-                  $scope.todos = data;
-                  console.log(data);
               })
               .error(function(data) {
                   console.log('Error: ' + data);
               });
-      };
+  };
+
+  // delete all done ToDos
+  $scope.deleteTodos = function() {
+        for (todo in $scope.todos) {
+            if ($scope.todos[todo].done) {
+              deleteTodo(todo)
+            }
+        }
+  };
+
+  // delete a todo
+ var deleteTodo = function(id) {
+      $http.delete('/api/todos/' + id)
+          .success(function(data) {
+              $scope.todos = data;
+              console.log(data);
+          })
+          .error(function(data) {
+              console.log('Error: ' + data);
+          });
+};
 
 }
