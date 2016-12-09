@@ -38,6 +38,15 @@ function drbController ($scope, $http) {
         }
   };
 
+  // count number of todos
+  $scope.numTodos = function(){
+    var num = 0;
+    for (keys in $scope.todos) {
+      num++;
+    }
+    return num;
+  }
+
   // delete a todo
  var deleteTodo = function(id) {
       $http.delete('/api/todos/' + id)
@@ -49,5 +58,6 @@ function drbController ($scope, $http) {
               console.log('Error: ' + data);
           });
 };
+
 
 }

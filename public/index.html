@@ -7,12 +7,12 @@
 <body ng-controller="drbController">
   <div  class="centered">
   <h1>DRBs ToDo Angular Example</h1>
-    <div>I have this many todos to complete: {{todos.length}}</div>
+    <div>I have this many todos to complete: {{ numTodos() }}</div>
     <div class="midcol">
      <form>
        <div class="left" ng-repeat="(id,todo) in todos">
 
-          <input type="checkbox" ng-checked="todo.done" ng-model="todo.done"><span ng-class="{'doneclass':todo.done}"><span class="bold">{{todo.name}}: </span>{{todo.text}}{{ todos.length }}</span>
+          <input type="checkbox" ng-checked="todo.done" ng-model="todo.done"><span ng-class="{'doneclass':todo.done}"><span class="bold">{{todo.name}}: </span>{{todo.text}}</span>
         <!--           <input type="checkbox"  ng-click="deleteTodo(id)" ng-checked="todo.done" ng-class="{doneclass: todo.done}"><span class="bold">{{todo.name}}: </span>{{todo.text}}</div>
  -->
       </div>
